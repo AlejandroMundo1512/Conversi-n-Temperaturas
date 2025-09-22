@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversión de Temperatura</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>🌡️ Conversor de Temperatura</h2>
+    
+    <label for="celsius">Ingresa la temperatura en °C:</label>
+    <input type="text" id="celsius" placeholder="Ejemplo: 25">
+    <button onclick="convertirTemperatura()">Convertir</button>
+
+    <div id="resultado" class="fade"></div>
+  </div>
+
+  <script>
+    function convertirTemperatura() {
+      let input = document.getElementById("celsius").value.trim();
+      let celsius = parseFloat(input);
+
+      if (isNaN(celsius)) {
+        alert("❌ Error: Ingresa un valor numérico válido.");
+        document.getElementById("resultado").innerHTML = "";
+        return;
+      }
+
+      let kelvin = celsius + 273.15;
+      let fahrenheit = (celsius * 9/5) + 32;
+
+      console.log("Grados Kelvin: " + kelvin.toFixed(2));
+      console.log("Grados Fahrenheit: " + fahrenheit.toFixed(2));
+
+      let resultadoDiv = document.getElementById("resultado");
+
+      // Actualizamos el contenido
+      resultadoDiv.innerHTML = `
+        <p>Grados Kelvin: <strong>${kelvin.toFixed(2)}</strong></p>
+        <p>Grados Fahrenheit: <strong>${fahrenheit.toFixed(2)}</strong></p>
+      `;
+
+      // Reinicia la animación para que se vea cada vez que se calcula
+      resultadoDiv.classList.remove("show");
+      void resultadoDiv.offsetWidth; // hack para reiniciar animación
+      resultadoDiv.classList.add("show");
+    }
+  </script>
+</body>
+</html>
